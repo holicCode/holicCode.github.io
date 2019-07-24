@@ -109,7 +109,7 @@
 <meta property="og:site_name" content="holicCode&#39;s blog">
 <meta property="og:description" content="剑指offer第一题题目:在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 思路:因为这个二维数组是有序的, 可以先定位到左下角, 判断要找的数,  如果target &amp;gt; 左下角 就往右找, 然后target &amp;lt; 左下角 就往上找 123456">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-24T05:47:13.397Z">
+<meta property="og:updated_time" content="2019-07-24T14:05:15.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剑指offer题库以及详解">
 <meta name="twitter:description" content="剑指offer第一题题目:在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 思路:因为这个二维数组是有序的, 可以先定位到左下角, 判断要找的数,  如果target &amp;gt; 左下角 就往右找, 然后target &amp;lt; 左下角 就往上找 123456">
@@ -485,7 +485,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">9.2k</span>
+              <span title="本文字数">11k</span>
             </span>
           
 
@@ -497,7 +497,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span title="阅读时长">8 分钟</span>
+              <span title="阅读时长">10 分钟</span>
             </span>
           
 
@@ -591,6 +591,23 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
 <p>不用递归, 效率比较高的解法:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">RectCover</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt; <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"输入的数不能小于0"</span>);</span><br><span class="line">        <span class="keyword">if</span>(target == <span class="number">0</span> || target == <span class="number">1</span>) <span class="keyword">return</span> target;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>, sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= target;i++)&#123;</span><br><span class="line">            sum = a + b;</span><br><span class="line">            b = a;</span><br><span class="line">            a = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="第十一题"><a href="#第十一题" class="headerlink" title="第十一题"></a>第十一题</h2><p><strong>题目</strong>: 输入一个整数, 输出该数二进制表示中1的个数, 其中负数用补码表示</p>
+<p><strong>思路</strong>:如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。</p>
+<p><strong>举个例子</strong>：一个二进制数1100，从右边数起第三位是处于最右边的一个1。减去1后，第三位变成0，它后面的两位0变成了1，而前面的1保持不变，因此得到的结果是1011.我们发现减1的结果是把最右边的一个1开始的所有位都取反了。这个时候如果我们再把原来的整数和减去1之后的结果做与运算，从原来整数最右边一个1那一位开始所有位都会变成0。如1100&amp;1011=1000.也就是说，把一个整数减去1，再和原整数做与运算，会把该整数最右边一个1变成0.那么一个整数的二进制有多少个1，就可以进行多少次这样的操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">		count++;</span><br><span class="line">		n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十二题"><a href="#第十二题" class="headerlink" title="第十二题"></a>第十二题</h2><p>题目: 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p>
+<p>解法一: 常规解法, 时间复杂度为O(n)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> result = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//abs() : 返回这个数的绝对值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; Math.abs(exponent);i++)&#123;</span><br><span class="line">            result *= base;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(exponent &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            result = <span class="number">1</span>/result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解法二: 递归: </p>
+<blockquote>
+<p>​        n为偶数时, a^n = a^(n/2) * a^(n/2)</p>
+<p>​        n为奇数时, a^n=（a^（n-1）/2）×（a^（n-1/2））×a</p>
+<p>时间复杂度为 O(logn)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">Solution</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = Math.abs(exponent);</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> base;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> result = Power(base, n&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        result *= result;</span><br><span class="line">        <span class="keyword">if</span>((n&amp;<span class="number">1</span>) == <span class="number">1</span>) result *= base;</span><br><span class="line">        <span class="keyword">if</span>(exponent &lt; <span class="number">0</span>) result = <span class="number">1</span>/result;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="未完-待续………"><a href="#未完-待续………" class="headerlink" title="未完,待续………."></a>未完,待续……….</h2>
       
     </div>
@@ -658,15 +675,15 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/23/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/MySQL基础知识/" rel="prev" title="MySQL初级">
+                MySQL初级 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -762,7 +779,9 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -781,7 +800,9 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -821,7 +842,7 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
       
         
       
-        <a href="https://me.csdn.net/15691402609" title="CSDN &rarr; https://me.csdn.net/15691402609" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>CSDN</a>
+        <a href="https://me.csdn.net/holicCode" title="CSDN &rarr; https://me.csdn.net/holicCode" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>CSDN</a>
       </span>
     
       <span class="links-of-author-item">
@@ -859,7 +880,7 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指offer"><span class="nav-number">1.</span> <span class="nav-text">剑指offer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一题"><span class="nav-number">1.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二题"><span class="nav-number">1.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三题"><span class="nav-number">1.3.</span> <span class="nav-text">第三题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四题"><span class="nav-number">1.4.</span> <span class="nav-text">第四题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五题"><span class="nav-number">1.5.</span> <span class="nav-text">第五题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六题"><span class="nav-number">1.6.</span> <span class="nav-text">第六题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七题"><span class="nav-number">1.7.</span> <span class="nav-text">第七题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八题"><span class="nav-number">1.8.</span> <span class="nav-text">第八题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九题"><span class="nav-number">1.9.</span> <span class="nav-text">第九题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十题"><span class="nav-number">1.10.</span> <span class="nav-text">第十题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完-待续………"><span class="nav-number">1.11.</span> <span class="nav-text">未完,待续……….</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指offer"><span class="nav-number">1.</span> <span class="nav-text">剑指offer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一题"><span class="nav-number">1.1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二题"><span class="nav-number">1.2.</span> <span class="nav-text">第二题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三题"><span class="nav-number">1.3.</span> <span class="nav-text">第三题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四题"><span class="nav-number">1.4.</span> <span class="nav-text">第四题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五题"><span class="nav-number">1.5.</span> <span class="nav-text">第五题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六题"><span class="nav-number">1.6.</span> <span class="nav-text">第六题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七题"><span class="nav-number">1.7.</span> <span class="nav-text">第七题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第八题"><span class="nav-number">1.8.</span> <span class="nav-text">第八题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第九题"><span class="nav-number">1.9.</span> <span class="nav-text">第九题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十题"><span class="nav-number">1.10.</span> <span class="nav-text">第十题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一题"><span class="nav-number">1.11.</span> <span class="nav-text">第十一题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二题"><span class="nav-number">1.12.</span> <span class="nav-text">第十二题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完-待续………"><span class="nav-number">1.13.</span> <span class="nav-text">未完,待续……….</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -892,7 +913,7 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">10k</span>
+    <span title="站点总字数">24k</span>
   
 
   
@@ -901,7 +922,7 @@ f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">9 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
   
 </div>
 
