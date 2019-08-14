@@ -109,7 +109,7 @@
 <meta property="og:site_name" content="holicCode&#39;s blog">
 <meta property="og:description" content="一、概念：redis是一款高性能的NoSQL系列的非关系型数据库1.1什么是NoSQL123456789101112131415161718192021222324252627281.1.什么是NoSQL	NoSQL(NoSQL = Not Only SQL)，意即“不仅仅是SQL”，是一项全新的数据库理念，泛指非关系型的数据库。	随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-10T01:58:15.995Z">
+<meta property="og:updated_time" content="2019-08-14T02:46:28.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis的相关知识">
 <meta name="twitter:description" content="一、概念：redis是一款高性能的NoSQL系列的非关系型数据库1.1什么是NoSQL123456789101112131415161718192021222324252627281.1.什么是NoSQL	NoSQL(NoSQL = Not Only SQL)，意即“不仅仅是SQL”，是一项全新的数据库理念，泛指非关系型的数据库。	随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.">
@@ -485,7 +485,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span title="本文字数">9.8k</span>
+              <span title="本文字数">10k</span>
             </span>
           
 
@@ -570,6 +570,9 @@
 <h2 id="6-6-如何保证缓存与数据库双写时的数据一致性？"><a href="#6-6-如何保证缓存与数据库双写时的数据一致性？" class="headerlink" title="6.6 如何保证缓存与数据库双写时的数据一致性？"></a>6.6 如何保证缓存与数据库双写时的数据一致性？</h2><p>你只要用缓存，就可能会涉及到缓存与数据库双存储双写，你只要是双写，就一定会有数据一致性的问题，那么你如何解决一致性问题？<br>一般来说，就是如果你的系统不是严格要求缓存+数据库必须一致性的话，缓存可以稍微的跟数据库偶尔有不一致的情况，最好不要做这个方案，读请求和写请求串行化，串到一个内存队列里去，这样就可以保证一定不会出现不一致的情况。<br>串行化之后，就会导致系统的吞吐量会大幅度的降低，用比正常情况下多几倍的机器去支撑线上的一个请求。</p>
 <h2 id="6-7-Redis的主从复制如何实现？"><a href="#6-7-Redis的主从复制如何实现？" class="headerlink" title="6.7 Redis的主从复制如何实现？"></a>6.7 Redis的主从复制如何实现？</h2><p>主节点将自己内存中的数据做一份快照，将快照发给从节点，从节点将数据恢复到内存中</p>
 <p>在每次增加新数据的时候，主节点以类似于MySQL的二进制日志方式将语句发送给从节点，从节点拿到主节点发送过来的语句进行重放</p>
+<h2 id="6-8-Redis的单线程模型-为什么redis单线程还能支撑高并发"><a href="#6-8-Redis的单线程模型-为什么redis单线程还能支撑高并发" class="headerlink" title="6.8 Redis的单线程模型? 为什么redis单线程还能支撑高并发?"></a>6.8 Redis的单线程模型? 为什么redis单线程还能支撑高并发?</h2><p>客户端发出 socket 请求—–&gt;连接到 redis 的 server socket —–&gt;通过 AE_READABLE 发送到IO多路复用器—–&gt;将请求压入任务队列中—–&gt;通过文件事件分派器分配到相应的事件处理器</p>
+<p>核心是基于非阻塞的IO多路复用模型</p>
+<p>纯内存操作，处理请求非常快</p>
 
       
     </div>
@@ -759,7 +762,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -796,7 +799,9 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -833,7 +838,9 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -911,7 +918,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、概念：redis是一款高性能的NoSQL系列的非关系型数据库"><span class="nav-number">1.</span> <span class="nav-text">一、概念：redis是一款高性能的NoSQL系列的非关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1什么是NoSQL"><span class="nav-number">1.1.</span> <span class="nav-text">1.1什么是NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2主流的NoSQL产品"><span class="nav-number">1.2.</span> <span class="nav-text">1.2主流的NoSQL产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3什么是Redis"><span class="nav-number">1.3.</span> <span class="nav-text">1.3什么是Redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、关于Redis中的一些操作"><span class="nav-number">2.</span> <span class="nav-text">二、关于Redis中的一些操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1下载安装"><span class="nav-number">2.1.</span> <span class="nav-text">2.1下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2命令操作"><span class="nav-number">2.2.</span> <span class="nav-text">2.2命令操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Redis的持久化"><span class="nav-number">3.</span> <span class="nav-text">三、Redis的持久化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、jedis中连接池：jedisPool的使用"><span class="nav-number">4.</span> <span class="nav-text">四、jedis中连接池：jedisPool的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、注意"><span class="nav-number">5.</span> <span class="nav-text">五、注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、面试中的Redis相关知识"><span class="nav-number">6.</span> <span class="nav-text">六、面试中的Redis相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-redis-和-memcached-的区别"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 redis 和 memcached 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-redis-设置过期时间"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 redis 设置过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-redis-内存淘汰机制（MySQL里有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据？）"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 redis 内存淘汰机制（MySQL里有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据？）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-redis-持久化机制（怎么保证-redis-挂掉之后再重启数据可以进行恢复？）"><span class="nav-number">6.4.</span> <span class="nav-text">6.4  redis 持久化机制（怎么保证 redis 挂掉之后再重启数据可以进行恢复？）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-缓存雪崩和缓存穿透问题解决方案"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 缓存雪崩和缓存穿透问题解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-6-如何保证缓存与数据库双写时的数据一致性？"><span class="nav-number">6.6.</span> <span class="nav-text">6.6 如何保证缓存与数据库双写时的数据一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-Redis的主从复制如何实现？"><span class="nav-number">6.7.</span> <span class="nav-text">6.7 Redis的主从复制如何实现？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、概念：redis是一款高性能的NoSQL系列的非关系型数据库"><span class="nav-number">1.</span> <span class="nav-text">一、概念：redis是一款高性能的NoSQL系列的非关系型数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1什么是NoSQL"><span class="nav-number">1.1.</span> <span class="nav-text">1.1什么是NoSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2主流的NoSQL产品"><span class="nav-number">1.2.</span> <span class="nav-text">1.2主流的NoSQL产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3什么是Redis"><span class="nav-number">1.3.</span> <span class="nav-text">1.3什么是Redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、关于Redis中的一些操作"><span class="nav-number">2.</span> <span class="nav-text">二、关于Redis中的一些操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1下载安装"><span class="nav-number">2.1.</span> <span class="nav-text">2.1下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2命令操作"><span class="nav-number">2.2.</span> <span class="nav-text">2.2命令操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Redis的持久化"><span class="nav-number">3.</span> <span class="nav-text">三、Redis的持久化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、jedis中连接池：jedisPool的使用"><span class="nav-number">4.</span> <span class="nav-text">四、jedis中连接池：jedisPool的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、注意"><span class="nav-number">5.</span> <span class="nav-text">五、注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、面试中的Redis相关知识"><span class="nav-number">6.</span> <span class="nav-text">六、面试中的Redis相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-redis-和-memcached-的区别"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 redis 和 memcached 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-redis-设置过期时间"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 redis 设置过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-redis-内存淘汰机制（MySQL里有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据？）"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 redis 内存淘汰机制（MySQL里有2000w数据，Redis中只存20w的数据，如何保证Redis中的数据都是热点数据？）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-redis-持久化机制（怎么保证-redis-挂掉之后再重启数据可以进行恢复？）"><span class="nav-number">6.4.</span> <span class="nav-text">6.4  redis 持久化机制（怎么保证 redis 挂掉之后再重启数据可以进行恢复？）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-缓存雪崩和缓存穿透问题解决方案"><span class="nav-number">6.5.</span> <span class="nav-text">6.5 缓存雪崩和缓存穿透问题解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-6-如何保证缓存与数据库双写时的数据一致性？"><span class="nav-number">6.6.</span> <span class="nav-text">6.6 如何保证缓存与数据库双写时的数据一致性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-Redis的主从复制如何实现？"><span class="nav-number">6.7.</span> <span class="nav-text">6.7 Redis的主从复制如何实现？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-Redis的单线程模型-为什么redis单线程还能支撑高并发"><span class="nav-number">6.8.</span> <span class="nav-text">6.8 Redis的单线程模型? 为什么redis单线程还能支撑高并发?</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -944,7 +951,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">100k</span>
+    <span title="站点总字数">103k</span>
   
 
   
@@ -953,7 +960,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:31</span>
+    <span title="站点阅读时长">1:34</span>
   
 </div>
 
