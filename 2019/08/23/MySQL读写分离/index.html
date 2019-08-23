@@ -101,17 +101,20 @@
   };
 </script>
 
-  <meta name="description" content="Self-discipline is the key to happiness">
-<meta name="keywords" content="Mr.Fu">
-<meta property="og:type" content="website">
-<meta property="og:title" content="holicCode&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/categories/SpringBoot/index.html">
+  <meta name="description" content="一、MySQL的读写分离1.1 为什么要使用MySQL的读写分离？​    在高并发的场景下，当用户发起大量请求时，缓存肯定放不下所有数据，那么这些请求就会落到数据库上，当数据库的读写请求太高（2000次/s）时，数据库就会报警，磁盘IO开始变慢，CPU负载过高，内存使用率过高。当数据库读写请求达到4000/s，5000/s，8000/s时，数据库就会直接宕机，所以为了解决这种问题就诞生了MySQ">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL读写分离">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/MySQL读写分离/index.html">
 <meta property="og:site_name" content="holicCode&#39;s blog">
-<meta property="og:description" content="Self-discipline is the key to happiness">
+<meta property="og:description" content="一、MySQL的读写分离1.1 为什么要使用MySQL的读写分离？​    在高并发的场景下，当用户发起大量请求时，缓存肯定放不下所有数据，那么这些请求就会落到数据库上，当数据库的读写请求太高（2000次/s）时，数据库就会报警，磁盘IO开始变慢，CPU负载过高，内存使用率过高。当数据库读写请求达到4000/s，5000/s，8000/s时，数据库就会直接宕机，所以为了解决这种问题就诞生了MySQ">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="g:%5C%E9%BB%91%E9%A9%AC%E5%BF%85%E7%9C%8B%E8%A7%86%E9%A2%91%5CJava%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E7%AC%AC1%E5%AD%A3%EF%BC%88%E5%8F%AF%E8%83%BD%E6%98%AF%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%A5%BD%E7%9A%84Java%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E8%AF%BE%E7%A8%8B%EF%BC%89-%E4%B8%AD%E5%8D%8E%E7%9F%B3%E6%9D%89%E8%80%81%E5%B8%88%5C51_%E8%AF%B4%E8%AF%B4MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BB%B6%E6%97%B6%E5%92%8B%E8%A7%A3%E5%86%B3%EF%BC%9F%5C02_MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86.png">
+<meta property="og:updated_time" content="2019-08-23T15:12:32.123Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="holicCode&#39;s blog">
-<meta name="twitter:description" content="Self-discipline is the key to happiness">
+<meta name="twitter:title" content="MySQL读写分离">
+<meta name="twitter:description" content="一、MySQL的读写分离1.1 为什么要使用MySQL的读写分离？​    在高并发的场景下，当用户发起大量请求时，缓存肯定放不下所有数据，那么这些请求就会落到数据库上，当数据库的读写请求太高（2000次/s）时，数据库就会报警，磁盘IO开始变慢，CPU负载过高，内存使用率过高。当数据库读写请求达到4000/s，5000/s，8000/s时，数据库就会直接宕机，所以为了解决这种问题就诞生了MySQ">
+<meta name="twitter:image" content="g:%5C%E9%BB%91%E9%A9%AC%E5%BF%85%E7%9C%8B%E8%A7%86%E9%A2%91%5CJava%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E7%AC%AC1%E5%AD%A3%EF%BC%88%E5%8F%AF%E8%83%BD%E6%98%AF%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%A5%BD%E7%9A%84Java%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E8%AF%BE%E7%A8%8B%EF%BC%89-%E4%B8%AD%E5%8D%8E%E7%9F%B3%E6%9D%89%E8%80%81%E5%B8%88%5C51_%E8%AF%B4%E8%AF%B4MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BB%B6%E6%97%B6%E5%92%8B%E8%A7%A3%E5%86%B3%EF%BC%9F%5C02_MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86.png">
 
 
 
@@ -121,7 +124,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/categories/SpringBoot/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/23/MySQL读写分离/">
 
 
 
@@ -132,7 +135,7 @@
 </script>
 
   
-  <title>分类: SpringBoot | holicCode's blog</title>
+  <title>MySQL读写分离 | holicCode's blog</title>
   
 
 
@@ -190,7 +193,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,7 +283,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -369,83 +372,327 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>SpringBoot<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/MySQL读写分离/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="holicCode">
+      <meta itemprop="description" content="Self-discipline is the key to happiness">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="holicCode's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/08/08/SpringBoot相关知识/" itemprop="url">
-            
-              <span itemprop="name">SpringBoot相关知识</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">MySQL读写分离
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-08T00:43:46+08:00" content="2019-08-08">
-          08-08
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
 
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-23 23:10:11" itemprop="dateCreated datePublished" datetime="2019-08-23T23:10:11+08:00">2019-08-23</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span title="本文字数">1.6k</span>
+            </span>
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span title="阅读时长">1 分钟</span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、MySQL的读写分离"><a href="#一、MySQL的读写分离" class="headerlink" title="一、MySQL的读写分离"></a>一、MySQL的读写分离</h1><h2 id="1-1-为什么要使用MySQL的读写分离？"><a href="#1-1-为什么要使用MySQL的读写分离？" class="headerlink" title="1.1 为什么要使用MySQL的读写分离？"></a>1.1 为什么要使用MySQL的读写分离？</h2><p>​    在高并发的场景下，当用户发起大量请求时，缓存肯定放不下所有数据，那么这些请求就会落到数据库上，当数据库的读写请求太高（2000次/s）时，数据库就会报警，磁盘IO开始变慢，CPU负载过高，内存使用率过高。当数据库读写请求达到4000/s，5000/s，8000/s时，数据库就会直接宕机，所以为了解决这种问题就诞生了MySQL的读写分离。</p>
+<h2 id="1-2-MySQL的读写分离怎么实现"><a href="#1-2-MySQL的读写分离怎么实现" class="headerlink" title="1.2 MySQL的读写分离怎么实现"></a>1.2 MySQL的读写分离怎么实现</h2><p>​    通过MySQL的主从复制</p>
+<p>​    就是基于主从复制架构，简单的来说，就是搞一个主库，挂多个从库，然后我们就单单只是写主库，然后主库会自动把数据给同步到从库上去。</p>
+<h1 id="二、主从复制"><a href="#二、主从复制" class="headerlink" title="二、主从复制"></a>二、主从复制</h1><h2 id="2-1-MySQL主从复制原理是啥？"><a href="#2-1-MySQL主从复制原理是啥？" class="headerlink" title="2.1 MySQL主从复制原理是啥？"></a>2.1 MySQL主从复制原理是啥？</h2><p><img src="G:%5C%E9%BB%91%E9%A9%AC%E5%BF%85%E7%9C%8B%E8%A7%86%E9%A2%91%5CJava%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E7%AC%AC1%E5%AD%A3%EF%BC%88%E5%8F%AF%E8%83%BD%E6%98%AF%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%A5%BD%E7%9A%84Java%E9%9D%A2%E8%AF%95%E7%AA%81%E5%87%BB%E8%AF%BE%E7%A8%8B%EF%BC%89-%E4%B8%AD%E5%8D%8E%E7%9F%B3%E6%9D%89%E8%80%81%E5%B8%88%5C51_%E8%AF%B4%E8%AF%B4MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BB%B6%E6%97%B6%E5%92%8B%E8%A7%A3%E5%86%B3%EF%BC%9F%5C02_MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86.png" alt="02_MySQL主从复制原理"></p>
+<p>​                                                                图片来自“石杉码农学院”</p>
+<p>原理：用户发来一个写请求后，主库将变更数据，然后写binlog日志，然后从库连接到主库之后，从库有一个IO线程，将主库额binlog日志拷贝到自己本地，写入relay日志，接着从库中有一个SQL线程会从relay日志读取变更，然后执行变更的内容，也就是说在自己本地再次执行一遍SQL，这样就可以保证自己跟主库的数据是一样的。</p>
+<h2 id="2-2-主从复制带来的问题"><a href="#2-2-主从复制带来的问题" class="headerlink" title="2.2 主从复制带来的问题"></a>2.2 主从复制带来的问题</h2><p>​    首先要明确一点，就是从库同步主库数据的过程是串行化的，就就是说主库上并行操作，在从库上会串行执行。</p>
+<p>​    所以这样就会引出一个问题：由于从库从主库拷贝日志以及串行串行执行SQL的特点，在搞并打场景下，从库的数据一定会比主库慢一些，是有延时的。所以经常会出现，刚写入主库的数据可能读不到，要过个几十毫秒，甚至几百毫秒才能读取到。即<strong>主从延迟</strong>。</p>
+<p>​    </p>
+<p>在实际生产中就有这种场景：</p>
+<ul>
+<li>​    数据已全部同步到从库后，主库突然发生了宕机<ul>
+<li>​    解决：将从库变更为主库</li>
+</ul>
+</li>
+<li>​    数据还没有全部同步到从库中时，主库突然发生了宕机<ul>
+<li>​    解决：<ul>
+<li>​    提前开启MySQL所支持的<strong>半同步机制</strong>。所谓半同步机制就是指：当用户发送一个写请求后，如果主库还没有同步到从库时，那么系统会认为这个写操作是失败的，然后给客户反馈一个失败的信息，然后客户重新发送，在这期间系统就将从库变更为了主库。</li>
+<li>​    <strong>并行复制</strong>：MySQL5.7支持的新特性，从库开启多个线程，并行读取relay日志中不同库的日志，然后并行重放不同库的日志，这是库级别的并行。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-3-当主从延迟比较严重时如何解决？"><a href="#2-3-当主从延迟比较严重时如何解决？" class="headerlink" title="2.3 当主从延迟比较严重时如何解决？"></a>2.3 当主从延迟比较严重时如何解决？</h2><p>​    先看一个场景：当你写业务代码时，先在数据库中插入一条数据，这时在立马将该数据查询出来，然后对其进行修改。</p>
+<p>​    分析上述场景：在数据库中插入数据是在主库中修改，然后由于主从延迟问题该数据还没有同步到从库，然后你又立马查询就会查不到结果，然后你的修改起始就也是无效的。</p>
+<p>​    解决：</p>
+<ol>
+<li>分库，将一个主库拆分成为4个主库，每个主库的写并发就降低了，此时的主从延迟就可以忽略不计</li>
+<li>打开MySQL支持的并行复制，多个库并行复制，如果说某个库的写入并发就是特别高，单库写并发达到了2000次/s，并行复制的意义其实不是很大</li>
+<li>重写代码，插入数据之后直接修改，那么这两个操作就都是在主库中进行的了</li>
+<li>如果业务上是存在这种必须先插入，立马查询，在修改的业务逻辑，那么就可以对这个操作设置<strong>直连主库</strong>。不推荐使用，因为这样导致读写分离的意义丧失了</li>
+</ol>
+<h1 id="三、在什么场景下使用MySQL的主从同步"><a href="#三、在什么场景下使用MySQL的主从同步" class="headerlink" title="三、在什么场景下使用MySQL的主从同步"></a>三、在什么场景下使用MySQL的主从同步</h1><p>​    建议是一般在读远远多去写，而且读的时候一般对数据时效性要求没那么高的时候，使用</p>
+<blockquote>
+<p>本文参考自：石杉码农学院的中华石杉老师的 “java工程师面试突击第一季”</p>
+</blockquote>
 
       
     </div>
 
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>Thanks</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="holicCode 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="holicCode 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>holicCode</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/08/23/MySQL读写分离/" title="MySQL读写分离">http://yoursite.com/2019/08/23/MySQL读写分离/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/16/浅谈shell/" rel="next" title="浅谈shell">
+                <i class="fa fa-chevron-left"></i> 浅谈shell
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="holicCode"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -465,8 +712,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,6 +893,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、MySQL的读写分离"><span class="nav-number">1.</span> <span class="nav-text">一、MySQL的读写分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-为什么要使用MySQL的读写分离？"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 为什么要使用MySQL的读写分离？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-MySQL的读写分离怎么实现"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 MySQL的读写分离怎么实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、主从复制"><span class="nav-number">2.</span> <span class="nav-text">二、主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-MySQL主从复制原理是啥？"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 MySQL主从复制原理是啥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-主从复制带来的问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 主从复制带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-当主从延迟比较严重时如何解决？"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 当主从延迟比较严重时如何解决？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、在什么场景下使用MySQL的主从同步"><span class="nav-number">3.</span> <span class="nav-text">三、在什么场景下使用MySQL的主从同步</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -812,6 +1085,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
@@ -832,6 +1109,26 @@
 
 
 
+
+  
+    
+
+
+<script>
+  window.livereOptions = {
+    refer: '2019/08/23/MySQL读写分离/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
 
 
 
